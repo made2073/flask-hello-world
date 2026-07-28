@@ -103,3 +103,23 @@ def db_select():
             cur.close()
         if conn is not None:
             conn.close()
+
+@app.route("/db_drop")
+def db_drop():
+    conn = None
+    cur = None
+    try:
+        conn = psycopg2.connect(DATABASE_URL)
+        cur = conn.cursor()
+        cur.execute("DROP TABLE IF EXISTS Basketball;")
+        conn.commit()
+        return "Basketball Table Dropped"
+    except Exception as e:
+        if conn is not None:
+            conn.rollback()
+        return f"Database error: {e}"
+    finally:
+        if cur is not None:
+            cur.close()
+        if conn is not None:
+            conn.close()
