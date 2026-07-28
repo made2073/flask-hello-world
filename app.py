@@ -22,7 +22,7 @@ def ddb_test():
         if conn is not None:
             conn.close()
 
-@app.route.("/db_create")
+@app.route("/db_create")
 def creating():
     conn = None
     cur = None
